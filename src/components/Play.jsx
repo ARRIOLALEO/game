@@ -8,12 +8,7 @@ import { callTheApi } from "../redux/QuestionsSlice";
 export default function Play() {
   const [allData, setAllData] = useState([]);
   let data = useSelector((state) => [state.data]);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(callTheApi());
-  }, []);
-
+  
   //   useEffect(() => {
   //     setAllData(data[0]);
   //   }, []);
@@ -23,10 +18,30 @@ export default function Play() {
   const categoryList = [
     ...new Set(data[0]?.map((item) => item.category.title)),
   ];
-
+  const [questions,setAllQuestions] = useState({})
   useEffect(() => {
     setCategories(categoryList);
+    // after set all the categories i call the function to filter all
+    // questions by balue
+    allQuestions()
   }, []);
+
+
+  // here im just iterating to get all the questionns by value
+  //and im saving them in an object you will get and object with key as value
+function allQuestions(){
+    const allquestions = data[0].reduce((acc,question)=>{
+      if(question.value in acc){
+        acc[question.value].push(question)
+      }else{
+        acc[question.value] = [question]
+      }
+      return acc
+    },{})
+    setAllQuestions(allquestions)
+}
+  
+
 
   //   const [valueNumbers, setValueNumbers] = useState({});
 
