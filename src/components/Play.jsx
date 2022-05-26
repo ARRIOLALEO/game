@@ -8,7 +8,7 @@ import { callTheApi } from "../redux/QuestionsSlice";
 export default function Play() {
   const [allData, setAllData] = useState([]);
   let data = useSelector((state) => [state.data]);
-  
+  // some changes
   //   useEffect(() => {
   //     setAllData(data[0]);
   //   }, []);
